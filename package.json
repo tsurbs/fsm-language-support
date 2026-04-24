@@ -2,9 +2,24 @@
   "name": "fsm-language-support",
   "displayName": "AIM FSM",
   "description": "Syntax highlighting and LSP for vex-aim-tools / genfsm .fsm files",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "cogrob",
   "license": "MIT",
+  "qna": "https://github.com/tsurbs/fsm-language-support/issues",
+  "icon": "media/icon.png",
+  "keywords": [
+    "aim",
+    "fsm",
+    "genfsm",
+    "vex",
+    "state machine",
+    "transitions",
+    "python"
+  ],
+  "galleryBanner": {
+    "color": "#0f172a",
+    "theme": "dark"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/tsurbs/fsm-language-support.git"
@@ -77,7 +92,8 @@
     "build": "node esbuild.js --production",
     "compile": "node esbuild.js",
     "watch": "node esbuild.js --watch",
-    "typecheck": "tsc -p ./ --noEmit"
+    "typecheck": "tsc -p ./ --noEmit",
+    "vsix": "npx @vscode/vsce package"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

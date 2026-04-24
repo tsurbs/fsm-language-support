@@ -48,10 +48,28 @@ Open **Settings** and search for **AIM FSM**, or edit `settings.json`:
 ```bash
 cd fsm-language-support
 npm install
-npx @vscode/vsce package
+npm run vsix
 ```
 
-Install the generated `.vsix` via **Extensions: Install from VSIX…**.
+(`vsce package` runs the `vscode:prepublish` script, which builds the bundled `dist/` output.) The VSIX is written to `fsm-language-support-<version>.vsix` in this folder. Install it via **Extensions: Install from VSIX…** (or use **Publish** below for the public marketplace).
+
+## Publish to the Visual Studio Marketplace
+
+1. [Create a publisher](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#create-a-publisher) (e.g. `cogrob`) in the [Visual Studio Marketplace](https://marketplace.visualstudio.com/manage) if you have not already. The `publisher` in `package.json` must match that name (case-sensitive).
+
+2. [Create a Personal Access Token (PAT)](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token) with the **Marketplace (Manage)** scope (Azure DevOps, “All accessible organizations” or the `vscode` org as in the official docs).
+
+3. Log in from this directory:
+
+   ```bash
+   npx @vscode/vsce login <your-publisher-name>
+   ```
+
+4. (Optional) Confirm the token can publish: `npx @vscode/vsce verify-pat <your-publisher-name>`
+
+5. Publish: `npx @vscode/vsce publish` (or `npx @vscode/vsce publish minor` to bump the version in `package.json` and publish in one step).
+
+6. For later updates, bump `version` in `package.json` (or use `vsce publish patch|minor|major`) and run `npx @vscode/vsce publish` again.
 
 ## License
 
