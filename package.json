@@ -1,0 +1,94 @@
+{
+  "name": "fsm-language-support",
+  "displayName": "AIM FSM",
+  "description": "Syntax highlighting and LSP for vex-aim-tools / genfsm .fsm files",
+  "version": "0.1.0",
+  "publisher": "cogrob",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsurbs/fsm-language-support.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tsurbs/fsm-language-support/issues"
+  },
+  "homepage": "https://github.com/tsurbs/fsm-language-support#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:fsm"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "fsm",
+        "aliases": [
+          "AIM FSM",
+          "genfsm"
+        ],
+        "extensions": [
+          ".fsm"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "fsm",
+        "scopeName": "source.fsm",
+        "path": "./syntaxes/fsm.tmLanguage.json"
+      },
+      {
+        "scopeName": "source.fsm.injection",
+        "path": "./syntaxes/fsm.injection.json",
+        "injectTo": [
+          "source.fsm"
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "AIM FSM",
+      "properties": {
+        "fsm.genfsmPath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the genfsm script (e.g. .../vex-aim-tools/genfsm). When set, the language server runs it to report parse errors. Leave empty to disable."
+        },
+        "fsm.pythonPath": {
+          "type": "string",
+          "default": "python3",
+          "description": "Python interpreter used to run genfsm."
+        },
+        "fsm.validateOnChange": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run genfsm validation while typing (when genfsmPath is set)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.js --production",
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "typecheck": "tsc -p ./ --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.23.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.11",
+    "vscode-uri": "^3.1.0"
+  }
+}
